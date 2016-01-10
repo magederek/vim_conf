@@ -42,8 +42,8 @@ set backspace=indent,eol,start
 " Add to whichwrap if want to cross lines, use , to split
 set whichwrap=b,s
 set ambiwidth=double " Full angle characters
-set sw=4 " shiftwidth when auto indent
-set ts=4 " tabstop - space count when press TAB
+set sw=2 " shiftwidth when auto indent
+set ts=2 " tabstop - space count when press TAB
 set et   " expandtab - replace TAB with space
 set smarttab " delete all space of et with Backspace once
 " set spell " Check spell. "z=" for suggestion; "]s" to the next incorrect
@@ -68,6 +68,31 @@ set selection=inclusive " Selecting area includes location of cursor
 set wildmenu " show beautiful delegating menu when TAP to complete
 set wildmode=longest,list " set wildmode: =full / =longest,list
 set nrformats=octal,hex " let <C-a> and <C-x> auto detect 0(oct) and 0x(hex)
+
+" ====================Vundle and Plugins Configuraton==================
+filetype off " required for Vundle Conf.!
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+" Let Vundle manage Vundle
+Bundle 'gmarik/vundle'
+" ************* 4 Methods to define the source of Plugins *************
+" I) vim-scripts vault of Github (replace SPACE with '-')
+" Bundle 'L9'
+"
+" II) other users' vaults of Github (username/pluginname)
+" Bundle 'tpope/vim-rails.git'
+"
+" III) other git vaults instead of Github (use git addr)
+" Bundle 'git://git.wincent.com/command-t.git'
+"
+" IV) local Git vault
+" Bundle 'file:///Users/gmarik/path/to/plugin' 
+
+" ======filetype should be configured after Vundle is configured=======
+filetype plugin indent on " Turn on filetype plugin to adapt auto indent
+
+" ===================Other Plugins Configuration=======================
+runtime macros/matchit.vim
 
 " =====================Set Title for Script File=======================
 "autocmd BufNewFile *.py,*.sh,*.rb, exec ":call SetTitle()"
@@ -94,25 +119,9 @@ set nrformats=octal,hex " let <C-a> and <C-x> auto detect 0(oct) and 0x(hex)
 "    autocmd BufNewFile * normal G
 "endfunction
 
-" ====================Vundle and Plugins Configuraton==================
-filetype off " required for Vundle Conf.!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-" Let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-" ************* 4 Methods to define the source of Plugins *************
-" I) vim-scripts vault of Github (replace SPACE with '-')
-" Bundle 'L9'
-"
-" II) other users' vaults of Github (username/pluginname)
-" Bundle 'tpope/vim-rails.git'
-"
-" III) other git vaults instead of Github (use git addr)
-" Bundle 'git://git.wincent.com/command-t.git'
-"
-" IV) local Git vault
-" Bundle 'file:///Users/gmarik/path/to/plugin' 
-
 " ==========================File Type Related==========================
-" ======filetype should be configured after Vundle is configured=======
-filetype plugin indent on " Turn on filetype plugin to adapt auto indent
+" *********************Ruby / Rails Configuraton***********************
+if (&filetype ==? 'ruby')
+    set ts=2 " tabstop - space count when press TAB
+    set sw=2 " shiftwidth when auto indent
+endif

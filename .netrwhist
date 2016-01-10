@@ -1,9 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/bin'
-let g:netrw_dirhist_2='/'
-let g:netrw_dirhist_3='/home/derek/practice/vim/files/mvc'
-let g:netrw_dirhist_4='/home/derek/practice/vim/files/mvc/lib'
-let g:netrw_dirhist_5='/home/derek/practice/vim/files/mvc'
-let g:netrw_dirhist_6='/home/derek/practice/vim/files/mvc/app'
-let g:netrw_dirhist_7='/home/derek/practice/vim/files/mvc'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/derek/Code/Rails/my_first_app/app/views/greeter'
+let g:netrw_dirhist_2='/home/derek/Code/Rails/my_first_app/app/helpers'
+let g:netrw_dirhist_3='/home/derek/practice/vim/jumps'

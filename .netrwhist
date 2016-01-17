@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/derek/Code/Rails/my_first_app/app/views/greeter'
 let g:netrw_dirhist_2='/home/derek/Code/Rails/my_first_app/app/helpers'
 let g:netrw_dirhist_3='/home/derek/practice/vim/jumps'
+let g:netrw_dirhist_4='/home/derek/Code/Rails/my_first_app/app/models'
+let g:netrw_dirhist_5='/home/derek/Code/Rails/my_first_app/app/helpers'

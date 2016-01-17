@@ -61,13 +61,20 @@ set ai " autoindent - auto indent with all codes
 
 " =======================Ex Mode Configuration=========================
 set history=200 " Ex Mode history numbers
+
 " ========================Other Configuration==========================
 set selectmode= " don't use selectmode
 set keymodel= " use "Shift+arraw" to jump between words in INSERT; OR "keymodel=startsel,stopsel" to make select letters
 set selection=inclusive " Selecting area includes location of cursor
 set wildmenu " show beautiful delegating menu when TAP to complete
-set wildmode=longest,list " set wildmode: =full / =longest,list
+set wildmode=full " set wildmode: =full / =longest,list
 set nrformats=octal,hex " let <C-a> and <C-x> auto detect 0(oct) and 0x(hex)
+
+" ======================Searching Configuration========================
+set ignorecase " ignore case when searching
+set smartcase " Don't ignore case when one of the letter is UPPER
+set magic " use \. for searching .; if turned on, cannot ues 'it' or 'at'
+set wrapscan " circulate search
 
 " ====================Vundle and Plugins Configuraton==================
 filetype off " required for Vundle Conf.!
@@ -75,12 +82,20 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 " Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
+
 " ************* 4 Methods to define the source of Plugins *************
 " I) vim-scripts vault of Github (replace SPACE with '-')
 " Bundle 'L9'
-"
+Bundle 'The-NERD-tree'
 " II) other users' vaults of Github (username/pluginname)
 " Bundle 'tpope/vim-rails.git'
+Bundle 'mattn/emmet-vim'
+Bundle 'kana/vim-textobj-user'
+Bundle 'kana/vim-textobj-lastpat'
+Bundle 'jceb/vim-textobj-uri'
+Bundle 'nelstrom/vim-textobj-rubyblock'
+Bundle 'whatyouhide/vim-textobj-erb'
+Bundle 'Valloric/YouCompleteMe'
 "
 " III) other git vaults instead of Github (use git addr)
 " Bundle 'git://git.wincent.com/command-t.git'
@@ -93,6 +108,18 @@ filetype plugin indent on " Turn on filetype plugin to adapt auto indent
 
 " ===================Other Plugins Configuration=======================
 runtime macros/matchit.vim
+" ***************************javacomplete2*****************************
+" ***************************YouCompleteMe*****************************
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_min_num_of_chars_for_completion=3
+let g:ycm_complete_in_comments=1
+let g:ycm_add_preview_to_completeopt=1
+let g:ycm_autoclose_preview_window_after_completion=0
+let g:ycm_autoclose_preview_window_after_insertion=1
+
+" ******************************Emmet**********************************
+let g:user_emmet_install_global=0
+autocmd FileType html,css,eruby EmmetInstall
 
 " =====================Set Title for Script File=======================
 "autocmd BufNewFile *.py,*.sh,*.rb, exec ":call SetTitle()"
@@ -125,3 +152,7 @@ if (&filetype ==? 'ruby')
     set ts=2 " tabstop - space count when press TAB
     set sw=2 " shiftwidth when auto indent
 endif
+
+" ============================Key Mapping==============================
+" append :nohlsearch into <C-l>
+ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>

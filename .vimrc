@@ -8,20 +8,24 @@ set encoding=utf-8
 " language message zh_CN.UTF-8
 
 " =========================Appearance Configuration==================== 
-" Set Fonts
+" Set Fonts and Auto Maximizing Window GUI
 if has("win32")
   set guifont=Consolas:h12:cANSI
+  autocmd GUIEnter * simalt ~x :
 else
-  set guifont=DejaVu\ Sans\ Mono\ 12
+  " ALTERNATIVE - set guifont=DejaVu\ Sans\ Mono\ 12
+  set guifont=Monaco\ 12
+  " GNOME, need to install wmctrl
+  autocmd GUIEnter * silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endif
 " Set theme and wrap
 if (has("gui_running"))
     set guioptions+=b " add horizontal banner
     set nowrap " no wrap when using GUI
-    colo torte " colorscheme
+    colo desert " colorscheme
 else
     set wrap " wrap when using cmd
-    colo ron " colorshcme
+    colo elflord " colorshcme
 endif
 set number	" Set Line number (nu)
 set ruler " display row and column on bottom
@@ -69,6 +73,7 @@ set selection=inclusive " Selecting area includes location of cursor
 set wildmenu " show beautiful delegating menu when TAP to complete
 set wildmode=full " set wildmode: =full / =longest,list
 set nrformats=octal,hex " let <C-a> and <C-x> auto detect 0(oct) and 0x(hex)
+set updatetime=250 " automatically refresh win per 250ms
 
 " ======================Searching Configuration========================
 set ignorecase " ignore case when searching
@@ -78,8 +83,13 @@ set wrapscan " circulate search
 
 " ====================Vundle and Plugins Configuraton==================
 filetype off " required for Vundle Conf.!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+if has("win32")
+  set rtp+=$VIM/vimfiles/bundle/vundle/
+  call vundle#rc('$VIM/vimfiles/bundle/')
+else
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+endif
 " Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
@@ -96,7 +106,11 @@ Bundle 'jceb/vim-textobj-uri'
 Bundle 'nelstrom/vim-textobj-rubyblock'
 Bundle 'whatyouhide/vim-textobj-erb'
 Bundle 'Valloric/YouCompleteMe'
-"
+Bundle 'jiangmiao/auto-pairs'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'Xuyuanp/git-nerdtree'
+Bundle 'airblade/vim-gitgutter'
+
 " III) other git vaults instead of Github (use git addr)
 " Bundle 'git://git.wincent.com/command-t.git'
 "
@@ -110,7 +124,13 @@ filetype plugin indent on " Turn on filetype plugin to adapt auto indent
 runtime macros/matchit.vim
 " ***************************javacomplete2*****************************
 " ***************************YouCompleteMe*****************************
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cmd/cpp/ycm/.ycm_extra_conf.py'
+if has("win32")
+  " VARIOUS PATH in different system, reset if transplant.
+  let g:ycm_global_ycm_extra_conf='D:/Program Files/Vim/vimfiles/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+else
+  let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+endif
+let g:ycm_confirm_extra_conf=0
 let g:ycm_min_num_of_chars_for_completion=3
 let g:ycm_complete_in_comments=1
 let g:ycm_add_preview_to_completeopt=1
@@ -120,6 +140,8 @@ let g:ycm_autoclose_preview_window_after_insertion=1
 " ******************************Emmet**********************************
 let g:user_emmet_install_global=0
 autocmd FileType html,css,eruby EmmetInstall
+" ******************************CTags**********************************
+" autocmd BufWritePost * call system("ctags -R") "auto call !ctags -R when :w
 
 " =====================Set Title for Script File=======================
 "autocmd BufNewFile *.py,*.sh,*.rb, exec ":call SetTitle()"
@@ -155,4 +177,8 @@ endif
 
 " ============================Key Mapping==============================
 " append :nohlsearch into <C-l>
- nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" Let <&> reuse the FLAG of exec
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+nnoremap <F4> :NERDTreeTabsToggle<CR>
